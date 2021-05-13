@@ -1,0 +1,10 @@
+// Main SCSS Files
+// 
+// Creates a themed Bootstrap once compiled
+
+// NOTE: 'Create React App' already minifies and autoprefixer our CSS!
+//       Although not in development mode
+
+@import 'scss/variable';
+
+@import "~bootstrap/scss/bootstrap";
