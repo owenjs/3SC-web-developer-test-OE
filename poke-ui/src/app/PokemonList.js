@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import API from "../api";
+import PokemonSummary from './PokemonList/PokemonSummary';
 
 export default class PokemonList extends Component {
   constructor(props) {
@@ -20,14 +21,23 @@ export default class PokemonList extends Component {
   }
 
   render() {
-    if(!this.state.pokemon) {
+    let { pokemon } = this.state;
+
+    if(!pokemon) {
       return (<span>Loading...</span>);
     }
 
+    let pokemanCards = pokemon.results.map((pokemonInfo, key) => {
+      return <PokemonSummary key={key} pokemon={pokemonInfo} />;
+    });
+
     return ( 
-      <div>
+      <div className="container">
+        <div className="row g-4">
+          {pokemanCards}
+        </div>
+        <code>{JSON.stringify(pokemon)}</code>
         <button className="btn btn-secondary" onClick={() => this.handlePrevious()}>Previous</button>
-        <code>{JSON.stringify(this.state.pokemon)}</code>
         <button className="btn btn-primary" onClick={() => this.handleNext()}>Next</button>
       </div>
     );

@@ -18,6 +18,10 @@ let API = {
   // "Public" Methods
   getPokemon: function(queryData) {
     return this._fetch('pokemon', queryData);
+  },
+
+  getPokemonDetail: function(pokemonName) {
+    return this._fetch(`pokemon/${pokemonName}`);
   }
 }
 

@@ -3,9 +3,12 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  withRouter
 } from "react-router-dom";
+
 import PokemonList from "./app/PokemonList";
+import PokemonDetail from "./app/PokemonList/PokemonDetail";
 
 function Home() {
   return <h2>Home</h2>;
@@ -15,7 +18,7 @@ export default class App extends Component {
   render() {
     return (
       <Router>
-        <div>
+        <div className="container-fluid">
           <nav>
             <ul>
               <li>
@@ -27,16 +30,16 @@ export default class App extends Component {
             </ul>
           </nav>
 
-          {/* A <Switch> looks through its children <Route>s and
-              renders the first one that matches the current URL. */}
-          <Switch>
-            <Route path="/pokemon">
-              <PokemonList />
-            </Route>
-            <Route path="/">
-              <Home />
-            </Route>
-          </Switch>
+          <div className="row">
+            <div className="col-4">
+              <Route path="/pokemon" component={PokemonList} />
+            </div>
+            <div className="col-8">
+              <Route path="/pokemon/:id" children={<PokemonDetail />} />
+            </div>
+          </div>
+
+          <Route path="/" exact component={Home} />
         </div>
       </Router>
     );
