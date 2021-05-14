@@ -5,15 +5,18 @@ export default class PokemonList extends Component {
   constructor(props) {
     super(props);
 
+    this.queryData = {
+      offset: 0,
+      limit: 20
+    };
+
     this.state = {
       pokemon: null
     };
   }
 
   componentDidMount() {
-    API.getPokemon().then(data => {
-      this.setState({ pokemon: data });
-    });
+    this.handleFetch();
   }
 
   render() {
@@ -30,31 +33,29 @@ export default class PokemonList extends Component {
     );
   }
 
-  handleNext() {
-    if(!this.state.pokemon || !this.state.pokemon.next) {
-      // No Next Page available
-      return;
-    }
+  handleFetch() {
+    API.getPokemon(this.queryData).then(data => {
+      this.setState({ pokemon: data });
+    });
+  }
 
-    // TBD: Move this to API file
-    fetch(this.state.pokemon.next)
-      .then(res => res.json())
-      .then(data => {
-        this.setState({ pokemon: data });
-      });
+  handleNext() {
+    // Add the limit to the offset to find the next Pokemon
+    this.queryData.offset += this.queryData.limit;
+
+    // TODO: What if the offset is larger than all the possible pokemon?
+
+    this.handleFetch();
   }
 
   handlePrevious() {
-    if(!this.state.pokemon || !this.state.pokemon.previous) {
-      // No Previous Page available
+    if(this.queryData.offset - this.queryData.limit < 0) {
       return;
     }
 
-    // TBD: Move this to API file
-    fetch(this.state.pokemon.previous)
-      .then(res => res.json())
-      .then(data => {
-        this.setState({ pokemon: data });
-      });
+    // Minus the limit from the offset to find the previous Pokemon
+    this.queryData.offset -= this.queryData.limit;
+    
+    this.handleFetch();
   }
 }

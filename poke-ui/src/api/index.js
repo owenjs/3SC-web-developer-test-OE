@@ -2,17 +2,22 @@ let API = {
   // "Private" Methods
   _baseURL: "https://pokeapi.co/api/v2/",
 
-  _fetch: function(infix) {
+  _fetch: function(infix, { offset = 0, limit = 20 } = {}) {
+    // Build Query String
+    let queryString = `?offset=${offset}&limit=${limit}`;
+
     return new Promise((resolve, reject) => {
-      fetch(this._baseURL + infix)
+      console.log(this._baseURL + infix + queryString);
+      
+      fetch(this._baseURL + infix + queryString)
         .then(res => res.json())
         .then(data => resolve(data));
     })
   },
 
   // "Public" Methods
-  getPokemon: function() {
-    return this._fetch('pokemon');
+  getPokemon: function(queryData) {
+    return this._fetch('pokemon', queryData);
   }
 }
 
