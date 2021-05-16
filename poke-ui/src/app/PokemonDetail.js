@@ -7,7 +7,7 @@ export default class PokemonDetail extends Component {
     let { globalProps } = this.props;
 
     return (
-      <div className="row">
+      <div className="row h-100">
         <DisplayPokemonDetail displayPokemon={globalProps.viewPokemon} />
         
         <Route path={`/pokemon/${globalProps.viewPokemon}/:id`} render={({ match }) => {
