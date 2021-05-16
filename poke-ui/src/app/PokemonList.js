@@ -28,7 +28,7 @@ export default class PokemonList extends Component {
     }
 
     let pokemanCards = pokemon.results.map((pokemonInfo, key) => {
-      return <PokemonSummary key={key} pokemon={pokemonInfo} />;
+      return <PokemonSummary globalProps={this.props.globalProps} key={key} pokemon={pokemonInfo} />;
     });
 
     return ( 

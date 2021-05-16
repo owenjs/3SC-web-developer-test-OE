@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import API from "../../api";
 import { withRouter } from "react-router-dom";
 
-class PokemonDetail extends Component {
+export default class PokemonDetail extends Component {
   constructor(props) {
     super(props);
 
@@ -23,15 +23,15 @@ class PokemonDetail extends Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    if(state.pokemonName === props.match.params.id ) {
-      // We are rendering the same pokemon - not need to update state
+    if(state.pokemonName === props.displayPokemon ) {
+      // We are rendering the same pokemon - no need to update state
       return state; 
     }
 
     // The Pokemon name has changed, reset the state with the new name
     return {
       ...state,
-      pokemonName: props.match.params.id,
+      pokemonName: props.displayPokemon,
       pokemonDetails: null
     };
   }
@@ -41,14 +41,12 @@ class PokemonDetail extends Component {
       return (<span>Loading...</span>);
     }
 
-    return <code>{this.props.match.params.id}{JSON.stringify(this.state.pokemonDetails)}</code>;
+    return <div className="col"><code>{this.state.pokemonName}{/*JSON.stringify(this.state.pokemonDetails)*/}</code></div>;
   }
 
   handleFetch() {
-    API.getPokemonDetail(this.props.match.params.id).then(data => {
+    API.getPokemonDetail(this.state.pokemonName).then(data => {
       this.setState({ pokemonDetails: data });
     });
   }
 }
-
-export default withRouter(PokemonDetail)

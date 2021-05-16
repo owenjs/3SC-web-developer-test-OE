@@ -21,7 +21,9 @@ let API = {
   },
 
   getPokemonDetail: function(pokemonName) {
-    return this._fetch(`pokemon/${pokemonName}`);
+    return pokemonName 
+      ? this._fetch(`pokemon/${pokemonName}`)
+      : new Promise((resolve, reject) => reject());
   }
 }
 
