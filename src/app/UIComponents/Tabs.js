@@ -10,7 +10,7 @@ export default class UITabs extends Component {
           {tabsInfo.map((tabInfo, i) => this.buildTab(tabInfo, i))}
         </ul>
 
-        <div class="tab-content overflow-hidden">
+        <div class="tab-content overflow-hidden mt-3">
           {tabsInfo.map((tabInfo, i) => this.buildTabPane(tabInfo, i))}
         </div>
       </div>

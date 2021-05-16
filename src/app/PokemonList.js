@@ -83,7 +83,7 @@ export default class PokemonList extends Component {
       <div className="h-100 d-flex flex-column">
         <div>
           <div className="input-group mb-3">
-            <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="Search List..." onChange={(e) => this.handleSearch(e)} />
+            <input type="text" className="form-control form-control-lg" id="exampleFormControlInput1" placeholder="Search List..." onChange={(e) => this.handleSearch(e)} />
           </div>
         </div>
         
@@ -95,8 +95,8 @@ export default class PokemonList extends Component {
 
         <div className="d-flex justify-content-end pt-3 mt-auto">
           <div class="btn-group" role="group" aria-label="Pagination">
-            <button type="button" className="btn btn-dark text-white" onClick={() => this.handlePrevious()}>{'<'}</button>
-            <button type="button" className="btn btn-dark text-white" onClick={() => this.handleNext()}>{'>'}</button>
+            <button type="button" className="btn btn-outline-dark" onClick={() => this.handlePrevious()}>{'<'}</button>
+            <button type="button" className="btn btn-outline-dark" onClick={() => this.handleNext()}>{'>'}</button>
           </div>
         </div>
       </div>

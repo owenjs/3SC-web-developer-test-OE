@@ -10,7 +10,7 @@ import PokemonDetail from "./app/PokemonDetail";
 const HomePage = () => {
   return (
     <div className="w-100 h-100 d-flex flex-column align-items-center justify-content-center">
-      <h1>Welcome to <span className="text-primary">Poke UI!</span></h1>
+      <h1 className="display-1">Welcome to <span className="text-secondary">Poke UI!</span></h1>
       <p className="h5 mb-4">By Owen Evans - May 2021</p>
       <h2>Start by viewing the <Link to="/pokemon">Pokemon</Link></h2>
     </div>
