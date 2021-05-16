@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import API from "../../api";
+import util from '../util';
 import { withRouter } from "react-router-dom";
 
 // https://lodash.com/docs/4.17.15#get
@@ -24,7 +25,7 @@ const displayFields = [
     apiKey: 'name', 
     fieldName: 'Name', 
     fieldComponent: FieldTitle,
-    fnFieldFormat: fieldValue => (fieldValue.charAt(0).toUpperCase() + fieldValue.slice(1))
+    fnFieldFormat: fieldValue => util.upperCaseFirstLetter(fieldValue)
   },
   { 
     apiKey: 'sprites.other.official-artwork.front_default', 
@@ -51,7 +52,7 @@ const displayFields = [
     fieldName: 'Stats',
     fieldComponent: FieldGroup,
     fnFieldFormat: fieldValue => fieldValue.map(stat => ({
-      fieldName: stat.stat.name.charAt(0).toUpperCase() + stat.stat.name.slice(1),
+      fieldName: util.upperCaseFirstLetter(stat.stat.name),
       fieldValue: stat['base_stat'],
       fieldComponent: FieldText
     }))
@@ -62,7 +63,7 @@ const displayFields = [
     fieldComponent: FieldGroup,
     fnFieldFormat: fieldValue => fieldValue.map(({ type }) => ({
       fieldName: null,
-      fieldValue: type.name.charAt(0).toUpperCase() + type.name.slice(1),
+      fieldValue: util.upperCaseFirstLetter(type.name),
       fieldComponent: FieldText
     }))
   },
@@ -72,7 +73,7 @@ const displayFields = [
     fieldComponent: FieldGroup,
     fnFieldFormat: fieldValue => fieldValue.map(({ ability }) => ({
       fieldName: null,
-      fieldValue: ability.name.charAt(0).toUpperCase() + ability.name.slice(1),
+      fieldValue: util.upperCaseFirstLetter(ability.name),
       fieldComponent: FieldText
     }))
   },
@@ -82,7 +83,7 @@ const displayFields = [
     fieldComponent: FieldGroup,
     fnFieldFormat: fieldValue => fieldValue.map(({ move }) => ({
       fieldName: null,
-      fieldValue: move.name.charAt(0).toUpperCase() + move.name.slice(1),
+      fieldValue: util.upperCaseFirstLetter(move.name),
       fieldComponent: FieldText
     }))
   }
