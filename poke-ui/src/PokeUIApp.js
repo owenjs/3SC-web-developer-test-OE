@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import { Route, Link } from "react-router-dom";
 
 import PokemonList from "./app/PokemonList";
-import PokemonDetailWrapper from "./app/PokemonDetailWrapper";
+import PokemonDetail from "./app/PokemonDetail";
 
 function Home() {
   return <h2>Home</h2>;
 }
 
-export default class App extends Component {
+export default class PokeUIApp extends Component {
   constructor(props) {
     super(props)
 
@@ -31,8 +31,8 @@ export default class App extends Component {
 
   render() {
     return (
-      <div className="container-fluid">
-        <nav>
+      <div className="container-fluid vh-100 d-flex flex-column">
+        <nav className="col-auto">
           <ul>
             <li>
               <Link to="/">Home</Link>
@@ -43,18 +43,22 @@ export default class App extends Component {
           </ul>
         </nav>
 
-        <div className="row">
-          <div className="col-4">
-            <Route path="/pokemon" render={() => <PokemonList globalProps={this.getGlobalProps()} />} />
-          </div>
-          <div className="col-8">
-            <Route path="/pokemon/:id" render={({ match }) => {
-              if(this.state.viewPokemon !== match.params.id) {
-                this.setState({ viewPokemon: match.params.id});
-              }
+        <div className="col position-relative">
+          <div className="position-absolute h-100 w-100" style={{top: 0, left: 0, right: 0, bottom: 0}}>
+            <div className="row h-100">
+              <div className="col-4 h-100">
+                <Route path="/pokemon" render={() => <PokemonList globalProps={this.getGlobalProps()} />} />
+              </div>
+              <div className="col-8">
+                <Route path="/pokemon/:id" render={({ match }) => {
+                  if(this.state.viewPokemon !== match.params.id) {
+                    this.setState({ viewPokemon: match.params.id});
+                  }
 
-              return <PokemonDetailWrapper globalProps={this.getGlobalProps()} />;
-            }} />
+                  return <PokemonDetail globalProps={this.getGlobalProps()} />;
+                }} />
+              </div>
+            </div>
           </div>
         </div>
 

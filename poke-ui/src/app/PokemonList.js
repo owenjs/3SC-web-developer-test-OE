@@ -1,6 +1,21 @@
 import React, { Component } from "react";
 import API from "../api";
-import PokemonSummary from './PokemonList/PokemonSummary';
+
+import DisplayPokemonSummary from './PokemonList/Display';
+import UITabs from './UIComponents/Tabs';
+
+const UITabComponent = (props) => {
+  return (
+    <div className="row g-4">
+      {props.pokemanCards}
+    </div>
+  );
+};
+
+const UITabsInfo = [
+  { text: 'All', id: 'all', tabComponent: UITabComponent },
+  { text: 'Favorites', id: 'favorites', tabComponent: UITabComponent }
+];
 
 export default class PokemonList extends Component {
   constructor(props) {
@@ -14,6 +29,7 @@ export default class PokemonList extends Component {
     this.state = {
       pokemon: null,
       searchQuery: "",
+      activeTabId: 'all',
       viewFavorites: false
     };
   }
@@ -23,7 +39,7 @@ export default class PokemonList extends Component {
   }
 
   render() {
-    let { pokemon, viewFavorites, searchQuery } = this.state;
+    let { pokemon, viewFavorites, searchQuery, activeTabId } = this.state;
 
     if(!pokemon) {
       return (<span>Loading...</span>);
@@ -42,32 +58,29 @@ export default class PokemonList extends Component {
     }
 
     let pokemanCards = pokemonToDisplay.map((pokemonInfo, key) => {
-      return <PokemonSummary globalProps={this.props.globalProps} key={key} pokemon={pokemonInfo} />;
+      return <DisplayPokemonSummary globalProps={this.props.globalProps} key={key} pokemon={pokemonInfo} />;
     });
 
     return ( 
-      <div>
-        <div className="input-group mb-3">
-          <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="Search List..." onChange={(e) => this.handleSearch(e)} />
-        </div>
-
+      <div className="h-100 d-flex flex-column">
         <div>
-          <ul className="nav nav-tabs">
-            <li className="nav-item">
-              <a className={"nav-link" + (!viewFavorites ? ' active' : '')} onClick={() => this.handleTabChange(false)}>All</a>
-            </li>
-            <li className="nav-item">
-              <a className={"nav-link" + (viewFavorites ? ' active' : '')} onClick={() => this.handleTabChange(true)}>Favorites</a>
-            </li>
-          </ul>
+          <div className="input-group mb-3">
+            <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="Search List..." onChange={(e) => this.handleSearch(e)} />
+          </div>
         </div>
+        
+        <UITabs 
+          tabsInfo={UITabsInfo}
+          activeTabId={activeTabId} 
+          fnHandleTabChange={tabId => this.handleTabChange(tabId)}
+          tabPaneProps={{pokemanCards: pokemanCards}} />
 
-        <div className="row g-4">
-          {pokemanCards}
+        <div className="d-flex justify-content-end pt-3 mt-auto">
+          <div class="btn-group" role="group" aria-label="Pagination">
+            <button type="button" className="btn btn-dark text-white" onClick={() => this.handlePrevious()}>{'<'}</button>
+            <button type="button" className="btn btn-dark text-white" onClick={() => this.handleNext()}>{'>'}</button>
+          </div>
         </div>
-        <code>{JSON.stringify(pokemon)}</code>
-        <button className="btn btn-secondary" onClick={() => this.handlePrevious()}>Previous</button>
-        <button className="btn btn-primary" onClick={() => this.handleNext()}>Next</button>
       </div>
     );
   }
@@ -78,8 +91,8 @@ export default class PokemonList extends Component {
     });
   }
 
-  handleTabChange(favoritesTab) {
-    this.setState({ viewFavorites: favoritesTab });
+  handleTabChange(tabId) {
+    this.setState({ viewFavorites: tabId === 'favorites' });
   }
 
   handleSearch(e) {

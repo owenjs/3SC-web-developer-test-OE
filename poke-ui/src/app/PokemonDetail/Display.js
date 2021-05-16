@@ -1,7 +1,15 @@
 import React, { Component } from "react";
 import API from "../../api";
 
-export default class PokemonDetail extends Component {
+const displayFields = [
+  { apiKey: 'name', fieldName: 'Name', fieldComponent: 'TODO' },
+  { apiKey: 'height', fieldName: 'Height', fieldComponent: 'TODO' },
+  { apiKey: 'weight', fieldName: 'Weight', fieldComponent: 'TODO' },
+  { apiKey: 'base_experience', fieldName: 'Base Experience', fieldComponent: 'TODO' },
+  { apiKey: 'abilities' }
+];
+
+export default class DisplayPokemonDetail extends Component {
   constructor(props) {
     super(props);
 

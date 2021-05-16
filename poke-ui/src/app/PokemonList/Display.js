@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
 
 import View from '../Action/View';
 import Compare from '../Action/Compare';
 import Favorite from '../Action/Favorite';
 
-class PokemonSummary extends Component {
+export default class DisplayPokemonSummary extends Component {
 
   render() {
     let { pokemon } = this.props;
@@ -22,5 +21,3 @@ class PokemonSummary extends Component {
     );
   }
 }
-
-export default withRouter(PokemonSummary)
