@@ -8,8 +8,8 @@ Created by Owen Evans - May 2021
 
 ```
 # Clone the repo
-git clone https://github.com/owenjs/intergage-launch-pad.git
-cd intergage-launch-pad
+git clone https://github.com/owenjs/3SC-web-developer-test-OE.git
+cd 3SC-web-developer-test-OE
 
 # Install dependencies
 npm i
