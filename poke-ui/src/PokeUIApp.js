@@ -4,7 +4,10 @@ import { Route, Link } from "react-router-dom";
 import PokemonList from "./app/PokemonList";
 import PokemonDetail from "./app/PokemonDetail";
 
-function Home() {
+/**
+ * @returns The JSX to render the Home Page
+ */
+const HomePage = () => {
   return (
     <div className="w-100 h-100 d-flex flex-column align-items-center justify-content-center">
       <h1>Welcome to <span className="text-primary">Poke UI!</span></h1>
@@ -14,6 +17,7 @@ function Home() {
   );
 }
 
+/** @class Structure for the App */
 export default class PokeUIApp extends Component {
   constructor(props) {
     super(props)
@@ -27,6 +31,7 @@ export default class PokeUIApp extends Component {
       favoritePokemon: favoritePokemon
     };
 
+    // Public Methods and Properties which can be made available to all components
     this.globalProps = {
       updateComparePokemon: (pokemonName) => this.updateComparePokemon(pokemonName),
       removeComparePokemon: () => this.removeComparePokemon(),
@@ -35,13 +40,16 @@ export default class PokeUIApp extends Component {
     }
   }
 
+  /**
+   * @returns JSX for the Structure of the App
+   */
   render() {
     return (
       <div className="vh-100 d-flex flex-column">
         <div>
           <nav className="navbar navbar-expand-sm navbar-dark bg-primary col-auto">
             <div className="container-fluid">
-              <a className="navbar-brand" href="#">Navbar</a>
+              <span className="navbar-brand">Poke UI</span>
               <div className="collapse show navbar-collapse">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                   <li className="nav-item">
@@ -76,7 +84,7 @@ export default class PokeUIApp extends Component {
                 </div>
               </Route>
 
-              <Route path="/" exact component={Home} />
+              <Route path="/" exact component={HomePage} />
             </div>
           </div>
         </div>
@@ -84,6 +92,11 @@ export default class PokeUIApp extends Component {
     );
   }
 
+  /**
+   * Returns the Current state and Global Props in one Object
+   * 
+   * @returns {Object}
+   */
   getGlobalProps() {
     return {
       ...this.state,
@@ -91,21 +104,37 @@ export default class PokeUIApp extends Component {
     }
   }
 
+  /**
+   * Update the State for the pokemon currently being compared
+   */
   updateComparePokemon(pokemonName) {
     if(this.state.comparePokemon !== pokemonName) {
       this.setState({ comparePokemon: pokemonName});
     }
   }
 
+  /**
+   * Remove the compare pokemon from the state
+   */
   removeComparePokemon() {
     this.setState({ comparePokemon: null});
   }
 
+  /**
+   * Add a Pokemon to the favorites list
+   * 
+   * @param {String} pokemonName The name of the pokemon to add
+   */
   addFavorite(pokemonName) {
     let newFavoritePokemon = [...this.state.favoritePokemon, pokemonName];
     this.updateFavorites(newFavoritePokemon);
   }
 
+  /**
+   * Remove a Pokemon from the favorites list
+   * 
+   * @param {String} pokemonName The name of the pokemon to remove
+   */
   removeFavorite(pokemonName) {
     let newFavoritePokemon = [...this.state.favoritePokemon];
     
@@ -114,6 +143,11 @@ export default class PokeUIApp extends Component {
     this.updateFavorites(newFavoritePokemon);
   }
 
+  /**
+   * Update the State and reset the local storage for the favorites list
+   * 
+   * @param {Array} newFavoritePokemon New Array of Favorite Pokemon
+   */
   updateFavorites(newFavoritePokemon) {
     this.setState({ favoritePokemon: newFavoritePokemon});
 

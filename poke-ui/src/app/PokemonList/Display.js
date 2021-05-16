@@ -4,8 +4,8 @@ import View from '../Action/View';
 import Compare from '../Action/Compare';
 import Favorite from '../Action/Favorite';
 
+/** @class A Summary Item for a pokemon with appropriate Actions */
 export default class DisplayPokemonSummary extends Component {
-
   render() {
     let { pokemon } = this.props;
 

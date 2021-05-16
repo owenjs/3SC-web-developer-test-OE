@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+/** @class Create a text form field */
 export default class FieldText extends Component {
   constructor(props) {
     super(props)

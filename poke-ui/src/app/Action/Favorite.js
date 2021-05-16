@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 
+// Config for the Button
 const config = {
   btnVariant: 'success',
   btnText:    'Favorite',
   btnAltText: 'Unfavorite'
 };
 
+/** @class 'Favorite' Action and Button */
 export default class Favorite extends Component {
   constructor(props) {
     super(props)
@@ -13,6 +15,9 @@ export default class Favorite extends Component {
     this.config = config;
   }
 
+  /**
+   * The Favorite Action adds or removes the pokemon from the Favorites List
+   */
   handleClick(favorited) {
     let { pokemon, globalProps } = this.props;
 
@@ -23,6 +28,9 @@ export default class Favorite extends Component {
     }
   }
 
+  /**
+   * JSX for the Action's Button
+   */
   render() {
     let { pokemon, globalProps } = this.props,
         config = this.config,

@@ -1,25 +1,48 @@
 let API = {
-  // "Private" Methods
+
+  // "Private" Methods / Properties
+
+  // The Base URL for the API
   _baseURL: "https://pokeapi.co/api/v2/",
 
-  _fetch: function(infix, { offset = 0, limit = 20 } = {}) {
+  /**
+   * GET the JSON from a PokeAPI's endpoint
+   * 
+   * @param {String} suffix The end part of the URL needed, for example /pokemon
+   * @param {Object} QueryData Defaults Given 
+   * @returns 
+   */
+  _fetch: function(suffix, { offset = 0, limit = 20 } = {}) {
     // Build Query String
     let queryString = `?offset=${offset}&limit=${limit}`;
 
     return new Promise((resolve, reject) => {
-      console.log(this._baseURL + infix + queryString);
-      
-      fetch(this._baseURL + infix + queryString)
+      fetch(this._baseURL + suffix + queryString)
         .then(res => res.json())
         .then(data => resolve(data));
     })
   },
 
-  // "Public" Methods
+
+  // "Public" Methods / Properties
+
+  /**
+   * GET all Pokemon from the API
+   * Using limit and offset query data
+   * 
+   * @param {Object} queryData for the API call
+   * @returns A Promise Object for the API call 
+   */
   getPokemon: function(queryData) {
     return this._fetch('pokemon', queryData);
   },
 
+  /**
+   * GET the Pokemon's Statistics
+   * 
+   * @param {String} pokemonName 
+   * @returns A Promise Object for the API call 
+   */
   getPokemonDetail: function(pokemonName) {
     return pokemonName 
       ? this._fetch(`pokemon/${pokemonName}`)

@@ -4,6 +4,13 @@ import API from "../api";
 import DisplayPokemonSummary from './PokemonList/Display';
 import UITabs from './UIComponents/Tabs';
 
+/**
+ * The Listing has two tabs, one for all Pokemon and 
+ * one for the user's favorites. Here is the component for those tabs
+ * 
+ * @param {Object} props for the Component
+ * @returns JSX for a Tab Component
+ */
 const UITabComponent = (props) => {
   return (
     <div className="row g-4">
@@ -12,11 +19,16 @@ const UITabComponent = (props) => {
   );
 };
 
+// Metadata for the Tabs in the Listing View
 const UITabsInfo = [
   { text: 'All', id: 'all', tabComponent: UITabComponent },
   { text: 'Favorites', id: 'favorites', tabComponent: UITabComponent }
 ];
 
+/** 
+ * @class 
+ * List of Pokemon with Search Box, Pagination and Favorite List within a tab
+ */
 export default class PokemonList extends Component {
   constructor(props) {
     super(props);
@@ -34,10 +46,16 @@ export default class PokemonList extends Component {
     };
   }
 
+  /**
+   * Fetch initial Pokemon data after first render
+   */
   componentDidMount() {
     this.handleFetch();
   }
 
+  /**
+   * @returns JSX For the Listing View
+   */
   render() {
     let { pokemon, viewFavorites, searchQuery, activeTabId } = this.state;
 
@@ -85,29 +103,47 @@ export default class PokemonList extends Component {
     );
   }
 
+  /**
+   * Fetch the Pokemon from the API
+   */
   handleFetch() {
     API.getPokemon(this.queryData).then(data => {
       this.setState({ pokemon: data });
     });
   }
 
+  /**
+   * Update State when a tab is changed. 
+   * If it is the Favorites tab set viewFavorites as 'true'
+   */
   handleTabChange(tabId) {
     this.setState({ viewFavorites: tabId === 'favorites' });
   }
 
+  /**
+   * Update State when the user changes the Search Query
+   * 
+   * @param {*} e the event Object
+   */
   handleSearch(e) {
     this.setState({ searchQuery: e.target.value.toLowerCase() });
   }
 
+  /**
+   * When Next Pagination is clicked fetch the next List of Pokemon
+   */
   handleNext() {
     // Add the limit to the offset to find the next Pokemon
     this.queryData.offset += this.queryData.limit;
 
-    // TODO: What if the offset is larger than all the possible pokemon?
+    // ToDo: What if the offset is larger than all the possible pokemon?
 
     this.handleFetch();
   }
 
+  /**
+   * When Previous Pagination is clicked fetch the previous List of Pokemon
+   */
   handlePrevious() {
     if(this.queryData.offset - this.queryData.limit < 0) {
       return;

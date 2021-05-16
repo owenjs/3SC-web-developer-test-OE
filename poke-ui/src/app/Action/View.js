@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 
+// Config for the Button
 const config = {
   btnVariant: 'primary',
   btnText:    'View Details'
 };
 
+/** @class 'View' Action and Button */
 class View extends Component {
   constructor(props) {
     super(props)
@@ -13,6 +15,10 @@ class View extends Component {
     this.config = config;
   }
 
+  /**
+   * The View Action adds the pokemon's name to the URL removing the compare 
+   * pokemon part of the URL if present
+   */
   handleClick() {
     let { history, match, pokemon, globalProps } = this.props;
 
@@ -22,6 +28,9 @@ class View extends Component {
     globalProps.removeComparePokemon();
   }
 
+  /**
+   * JSX for the Action's Button
+   */
   render() {
     let config = this.config;
 
@@ -35,4 +44,5 @@ class View extends Component {
   }
 }
 
+// https://reactrouter.com/web/api/withRouter
 export default withRouter(View);
