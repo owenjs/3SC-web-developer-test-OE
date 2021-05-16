@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, withRouter } from "react-router-dom";
+import { Route } from "react-router-dom";
 import PokemonDetail from "./PokemonList/PokemonDetail";
 
 export default class PokemonDetailWrapper extends Component {

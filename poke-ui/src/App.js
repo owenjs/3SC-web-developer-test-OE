@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Route, Link } from "react-router-dom";
 
 import PokemonList from "./app/PokemonList";
-import PokemonDetail from "./app/PokemonList/PokemonDetail";
 import PokemonDetailWrapper from "./app/PokemonDetailWrapper";
 
 function Home() {
@@ -13,10 +12,13 @@ export default class App extends Component {
   constructor(props) {
     super(props)
 
+    // Get Favorite Pokemon from local Host
+    let favoritePokemon = localStorage.getItem('pokeui-favoritePokemon') || [];
+
     this.state = {
       viewPokemon: null,
       comparePokemon: null,
-      favoritePokemon: []
+      favoritePokemon: favoritePokemon
     };
 
     this.globalProps = {
@@ -78,6 +80,10 @@ export default class App extends Component {
   }
 
   addFavorite(pokemonName) {
-    this.setState({ favoritePokemon: [...this.state.favoritePokemon, pokemonName]});
+    let favoritePokemon = [...this.state.favoritePokemon, pokemonName];
+    this.setState({ favoritePokemon: favoritePokemon});
+
+    // Local Host set
+    localStorage.setItem('pokeui-favoritePokemon', JSON.stringify(favoritePokemon));
   }
 }

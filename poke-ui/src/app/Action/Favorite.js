@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
 
 const config = {
   btnVariant: 'success',
-  btnText:    'Favorite'
+  btnText:    'Favorite',
+  disabled:   false
 };
 
 export default class Favorite extends Component {
@@ -20,13 +20,19 @@ export default class Favorite extends Component {
   }
 
   render() {
-    let config = this.config;
+    let { pokemon, globalProps } = this.props,
+        config = {...this.config};
+
+    if(globalProps.favoritePokemon.includes(pokemon.name)) {
+      config.disabled = true;
+    }
 
     return (
       <button 
         className={`btn btn-${config.btnVariant}`}
-        onClick={() => this.handleClick()}>
-        {config.btnText}
+        onClick={() => this.handleClick()}
+        disabled={config.disabled}>
+          {config.btnText}
       </button>
     );
   }

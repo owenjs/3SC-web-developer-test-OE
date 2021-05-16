@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import API from "../../api";
-import { withRouter } from "react-router-dom";
 
 export default class PokemonDetail extends Component {
   constructor(props) {
@@ -38,7 +37,7 @@ export default class PokemonDetail extends Component {
 
   render() {
     if(!this.state.pokemonDetails) {
-      return (<span>Loading...</span>);
+      return (<div className="col"><span>Loading...</span></div>);
     }
 
     return <div className="col"><code>{this.state.pokemonName}{/*JSON.stringify(this.state.pokemonDetails)*/}</code></div>;

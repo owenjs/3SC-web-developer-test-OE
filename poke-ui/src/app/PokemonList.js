@@ -12,7 +12,9 @@ export default class PokemonList extends Component {
     };
 
     this.state = {
-      pokemon: null
+      pokemon: null,
+      searchQuery: "",
+      viewFavorites: false
     };
   }
 
@@ -21,18 +23,45 @@ export default class PokemonList extends Component {
   }
 
   render() {
-    let { pokemon } = this.state;
+    let { pokemon, viewFavorites, searchQuery } = this.state;
 
     if(!pokemon) {
       return (<span>Loading...</span>);
     }
 
-    let pokemanCards = pokemon.results.map((pokemonInfo, key) => {
+    let pokemonToDisplay = pokemon.results;
+
+    // Display Favorite Pokemon?
+    if(viewFavorites) {
+      pokemonToDisplay = pokemonToDisplay.filter((pokemonInfo) => this.props.globalProps.favoritePokemon.includes(pokemonInfo.name))
+    }
+
+    // Filter the List by the Search Query
+    if(searchQuery.length > 0) {
+      pokemonToDisplay = pokemonToDisplay.filter((pokemonInfo) => pokemonInfo.name.startsWith(searchQuery))
+    }
+
+    let pokemanCards = pokemonToDisplay.map((pokemonInfo, key) => {
       return <PokemonSummary globalProps={this.props.globalProps} key={key} pokemon={pokemonInfo} />;
     });
 
     return ( 
-      <div className="container">
+      <div>
+        <div className="input-group mb-3">
+          <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="Search List..." onChange={(e) => this.handleSearch(e)} />
+        </div>
+
+        <div>
+          <ul className="nav nav-tabs">
+            <li className="nav-item">
+              <a className={"nav-link" + (!viewFavorites ? ' active' : '')} onClick={() => this.handleTabChange(false)}>All</a>
+            </li>
+            <li className="nav-item">
+              <a className={"nav-link" + (viewFavorites ? ' active' : '')} onClick={() => this.handleTabChange(true)}>Favorites</a>
+            </li>
+          </ul>
+        </div>
+
         <div className="row g-4">
           {pokemanCards}
         </div>
@@ -47,6 +76,14 @@ export default class PokemonList extends Component {
     API.getPokemon(this.queryData).then(data => {
       this.setState({ pokemon: data });
     });
+  }
+
+  handleTabChange(favoritesTab) {
+    this.setState({ viewFavorites: favoritesTab });
+  }
+
+  handleSearch(e) {
+    this.setState({ searchQuery: e.target.value.toLowerCase() });
   }
 
   handleNext() {
