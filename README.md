@@ -6,15 +6,20 @@ Created by Owen Evans - May 2021
 
 ## Getting Started guide
 
-In the project directory, you can run:
+```
+# Clone the repo
+git clone https://github.com/owenjs/intergage-launch-pad.git
+cd intergage-launch-pad
 
-### `npm start`
+# Install dependencies
+npm i
+
+# Start Development Mode
+npm start
+```
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
 ## Frameworks Used
 
