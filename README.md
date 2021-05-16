@@ -27,6 +27,8 @@ You will also see any lint errors in the console.
 
 - Adding two pokemon names to the URL so that the comparing action can take place
   - Let PokeUIApp.js pass down Global Props to the Action Components so they know what the current ViewPokemon and ComparePokemon is. So the Action can build the URL correctly.
+- Console Error:'index.js:1 Warning: Invalid DOM property `class`. Did you mean `className`?'
+  - This is caused by the Import of 'bootstrap' - not sure how to remove it
 
 ## If I had more time what would I implement
 

@@ -19,7 +19,10 @@ let API = {
     return new Promise((resolve, reject) => {
       fetch(this._baseURL + suffix + queryString)
         .then(res => res.json())
-        .then(data => resolve(data));
+        .then(data => resolve(data))
+        .catch(() => {
+          reject(404);
+        });
     })
   },
 
@@ -46,7 +49,7 @@ let API = {
   getPokemonDetail: function(pokemonName) {
     return pokemonName 
       ? this._fetch(`pokemon/${pokemonName}`)
-      : new Promise((resolve, reject) => reject());
+      : new Promise((resolve, reject) => reject('no-name'));
   }
 }
 

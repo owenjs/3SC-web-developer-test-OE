@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import API from "../../api";
+import { withRouter } from "react-router-dom";
 
 // https://lodash.com/docs/4.17.15#get
 import _get from 'lodash.get';
@@ -88,7 +89,7 @@ const displayFields = [
 ];
 
 /** @class Displays a Pokemon's Statistics */
-export default class DisplayPokemonDetail extends Component {
+class DisplayPokemonDetail extends Component {
   constructor(props) {
     super(props);
 
@@ -180,8 +181,18 @@ export default class DisplayPokemonDetail extends Component {
    * Fetch the Pokemon's Statistics from the API
    */
   handleFetch() {
-    API.getPokemonDetail(this.state.pokemonName).then(data => {
-      this.setState({ pokemonDetails: data });
-    });
+    API.getPokemonDetail(this.state.pokemonName)
+      .then(data => {
+        this.setState({ pokemonDetails: data });
+      })
+      .catch((errorCode) => {
+        if(errorCode === 404) {
+          // Redirect to the /pokemon URL
+          this.props.history.push('/pokemon');
+        }
+      });
   }
 }
+
+// https://reactrouter.com/web/api/withRouter
+export default withRouter(DisplayPokemonDetail);
