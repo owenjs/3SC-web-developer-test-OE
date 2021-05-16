@@ -13,7 +13,7 @@ export default class App extends Component {
     super(props)
 
     // Get Favorite Pokemon from local Host
-    let favoritePokemon = localStorage.getItem('pokeui-favoritePokemon') || [];
+    let favoritePokemon = JSON.parse(localStorage.getItem('pokeui-favoritePokemon')) || [];
 
     this.state = {
       viewPokemon: null,
@@ -24,7 +24,8 @@ export default class App extends Component {
     this.globalProps = {
       updateComparePokemon: (pokemonName) => this.updateComparePokemon(pokemonName),
       removeComparePokemon: () => this.removeComparePokemon(),
-      addFavorite: (pokemonName) => this.addFavorite(pokemonName)
+      addFavorite: (pokemonName) => this.addFavorite(pokemonName),
+      removeFavorite: (pokemonName) => this.removeFavorite(pokemonName)
     }
   }
 
@@ -80,10 +81,22 @@ export default class App extends Component {
   }
 
   addFavorite(pokemonName) {
-    let favoritePokemon = [...this.state.favoritePokemon, pokemonName];
-    this.setState({ favoritePokemon: favoritePokemon});
+    let newFavoritePokemon = [...this.state.favoritePokemon, pokemonName];
+    this.updateFavorites(newFavoritePokemon);
+  }
+
+  removeFavorite(pokemonName) {
+    let newFavoritePokemon = [...this.state.favoritePokemon];
+    
+    newFavoritePokemon.splice(newFavoritePokemon.indexOf(pokemonName), 1);
+
+    this.updateFavorites(newFavoritePokemon);
+  }
+
+  updateFavorites(newFavoritePokemon) {
+    this.setState({ favoritePokemon: newFavoritePokemon});
 
     // Local Host set
-    localStorage.setItem('pokeui-favoritePokemon', JSON.stringify(favoritePokemon));
+    localStorage.setItem('pokeui-favoritePokemon', JSON.stringify(newFavoritePokemon));
   }
 }

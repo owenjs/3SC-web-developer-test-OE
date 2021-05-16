@@ -3,7 +3,7 @@ import React, { Component } from "react";
 const config = {
   btnVariant: 'success',
   btnText:    'Favorite',
-  disabled:   false
+  btnAltText: 'Unfavorite'
 };
 
 export default class Favorite extends Component {
@@ -13,26 +13,26 @@ export default class Favorite extends Component {
     this.config = config;
   }
 
-  handleClick() {
+  handleClick(favorited) {
     let { pokemon, globalProps } = this.props;
 
-    globalProps.addFavorite(pokemon.name);
+    if(favorited) {
+      globalProps.removeFavorite(pokemon.name);
+    } else {
+      globalProps.addFavorite(pokemon.name);
+    }
   }
 
   render() {
     let { pokemon, globalProps } = this.props,
-        config = {...this.config};
-
-    if(globalProps.favoritePokemon.includes(pokemon.name)) {
-      config.disabled = true;
-    }
+        config = this.config,
+        favorited = globalProps.favoritePokemon.includes(pokemon.name);
 
     return (
       <button 
         className={`btn btn-${config.btnVariant}`}
-        onClick={() => this.handleClick()}
-        disabled={config.disabled}>
-          {config.btnText}
+        onClick={() => this.handleClick(favorited)}>
+          {favorited ? config.btnAltText : config.btnText}
       </button>
     );
   }
