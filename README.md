@@ -40,5 +40,5 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 - Not allow the user to compare the same Pokemon side by side
 - Have the Favorite List independent to the pagination, at the moment it is not the correct User Experience
 - Allow User to see more Pokemon Statistics in Detail View
-- Allow User to drill down into each Statistics show to learn more about it
+- Allow User to drill down into each Statistics shown to learn more about it
 - Added React Tests
