@@ -6,10 +6,10 @@ import { withRouter } from "react-router-dom";
 // https://lodash.com/docs/4.17.15#get
 import _get from 'lodash.get';
 
-import FieldTitle from './DisplayFields/Title';
-import FieldImage from './DisplayFields/Image';
-import FieldText from './DisplayFields/Text';
-import FieldGroup from './DisplayFields/Group';
+import FieldTitle from '../UIComponents/DisplayFields/Title';
+import FieldImage from '../UIComponents/DisplayFields/Image';
+import FieldText from '../UIComponents/DisplayFields/Text';
+import FieldGroup from '../UIComponents/DisplayFields/Group';
 
 // Metadata for the fields that are displayed for each Pokemon Detail
 // 

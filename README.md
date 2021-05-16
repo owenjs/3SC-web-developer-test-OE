@@ -36,3 +36,4 @@ You will also see any lint errors in the console.
 - Have the Favorite List independent to the pagination, at the moment it is not the correct User Experience
 - Allow User to see more Pokemon Statistics in Detail View
 - Allow User to drill down into each Statistics show to learn more about it
+- Added React Tests
